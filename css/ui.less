@@ -1,3 +1,4 @@
+@import "mix.less";
 /* Blocker Screen */
 .landscape:before {
       content: "Please flip your Device";
@@ -47,6 +48,7 @@
     left: 0; right: 0;
     background: url("../images/popup/wood-rough.png") top center;
     -webkit-border-image: url("../images/popup/bar.png") 8 0 8 0 repeat;
+    -moz-border-image: url("../images/popup/bar.png") 8 0 8 0 repeat;
     border-top-width: 8px;
     border-right-width: 0px;
     border-bottom-width: 8px;
@@ -73,6 +75,7 @@
     position: absolute;
     left: 100%; top: -2px;
     -webkit-appearance: none;
+    -moz-appearance: none;
     margin: 0;
     border: 0;
     padding: 0;
@@ -142,6 +145,7 @@
    color: #fff;
    text-align: center;
    -webkit-box-shadow: 0 2px 5px rgba(255,255,255,.6) inset, 0 2px 2px rgba(0,0,0,.6);
+   -moz-box-shadow: 0 2px 5px rgba(255,255,255,.6) inset, 0 2px 2px rgba(0,0,0,.6);
    text-shadow: 0 -1px 1px rgba(0,0,0,.6);
    padding: 6px 15px 3px 15px;
 }
@@ -150,6 +154,7 @@
 }
 .button:active, button.invite:active, button.askFriends:active, button.ok:active {
    -webkit-box-shadow: 0 0px 5px rgba(255,255,255,.6) inset, 0 1px 1px rgba(0,0,0,.3);
+   -moz-box-shadow: 0 0px 5px rgba(255,255,255,.6) inset, 0 1px 1px rgba(0,0,0,.3);
    text-shadow: 0 0 10px #ff0;
 }
 .button.invite, button.invite,
@@ -166,6 +171,7 @@
 .panel {
     display: block;
     -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
     color: #543001;
     border-radius: 9px;
     border: 1px solid #B46A2E;
@@ -178,6 +184,7 @@
    border: 1px solid orange;
    border-radius: 6px;
    -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.3) inset;
+   -moz-box-shadow: 0 0 4px rgba(0,0,0,0.3) inset;
    padding: 9px 5px 12px 5px;
    text-align: center;
    background: #fffffe;
@@ -237,6 +244,7 @@ p.tiny strong {
       border-width: 2px;
       font: bold 36px/32px 'Luckiest Guy', sans-serif;
       -webkit-box-shadow: 0 4px 10px rgba(255,255,255,.6) inset, 0 4px 4px rgba(0,0,0,.6);
+      -moz-box-shadow: 0 4px 10px rgba(255,255,255,.6) inset, 0 4px 4px rgba(0,0,0,.6);
       text-shadow: 0 -2px 2px rgba(0,0,0,.6);
       padding: 12px 30px 6px 30px;
    }
@@ -246,6 +254,7 @@ p.tiny strong {
 
    .button:active, button.invite:active, button.askFriends:active, button.ok:active {
       -webkit-box-shadow: 0 0px 5px rgba(255,255,255,.6) inset, 0 1px 1px rgba(0,0,0,.3);
+      -moz-box-shadow: 0 0px 5px rgba(255,255,255,.6) inset, 0 1px 1px rgba(0,0,0,.3);
       text-shadow: 0 0 20px #ff0;
    }
    .button.deny, button.deny {
@@ -261,12 +270,14 @@ p.tiny strong {
       border-width: 2px;
       border-radius: 12px;
       -webkit-box-shadow: 0 0 8px rgba(0,0,0,0.3) inset;
+      -moz-box-shadow: 0 0 8px rgba(0,0,0,0.3) inset;
       padding: 18px 10px 24px 10px;
       font-size: 32px;
    }
    /* Pages, used for Shop/Level-Up/Castle Upgrade */
    .page {
       -webkit-border-image: url("../images/popup/bar.png") 16 0 16 0 repeat;
+      -moz-border-image: url("../images/popup/bar.png") 16 0 16 0 repeat;
       border-top-width: 16px;
       border-right-width: 0px;
       border-bottom-width: 16px;
@@ -380,11 +391,14 @@ figure.unlockable-dom-node{
     margin: 0;
     pointer-events: none;
     opacity: 1;
-    -webkit-transition: opacity .5s;
+    .transition(opacity .5s);
     &.unlocked{
         -webkit-animation-name: fadeout-unlockable;
         -webkit-animation-duration: 0.4s;
         -webkit-animation-fill-mode: forwards;
+        -moz-animation-name: fadeout-unlockable;
+        -moz-animation-duration: 0.4s;
+        -moz-animation-fill-mode: forwards;
     }
 }
 
@@ -454,9 +468,11 @@ figure.unlockable-dom-node[data-zone-number="5"] header{
   visibility: hidden;
     &.ready {
         -webkit-transition: -webkit-transform .6s .3s ease-out;
+        -moz-transition: -moz-transform .6s .3s ease-out;
     }
     &.read {
         -webkit-transition-delay: 3.5s;
+        -moz-transition-delay: 3.5s;
     }
 }
 
@@ -470,4 +486,11 @@ figure.unlockable-dom-node[data-zone-number="5"] header{
     -webkit-animation-direction: alternate;
     -webkit-animation-timing-function: ease;
     -webkit-transition: -webkit-transform .4s ease-out;
+
+    -moz-animation-name: pulse;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-duration: .2s;
+    -moz-animation-direction: alternate;
+    -moz-animation-timing-function: ease;
+    -moz-transition: -moz-transform .4s ease-out;
 }

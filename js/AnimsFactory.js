@@ -3,11 +3,16 @@
 (function () {
     "use strict";
     var utils = wooga.castle.utils,
+        prefix,
+        oAnimationTemplate,
+        iAnimationTemplate,
+        animationsConfig,
         AnimsFactory = function (view, config) {
 
             if (!view) {
                 return;
             }
+
 
             this.view = view;
             this.rootNode = document.createElement('div');
@@ -138,8 +143,66 @@
                 this.showItemFeedback(message);
                 delete message.amount;
             }, this);
+
+            this.initAnimationDefinitions();
         };
 
+
+    AnimsFactory.prototype.initAnimationDefinitions = function () {
+            prefix = wooga.castle.prefix;
+            oAnimationTemplate = 
+            '@-' + prefix + '-keyframes {oName} {\n' +
+                '0%   { -' + prefix + '-transform: translateX(0); }\n' +
+                '100% { -' + prefix + '-transform: translateX({oEnd}px); }\n' +
+            '}';
+            iAnimationTemplate =
+            '@-' + prefix + '-keyframes {iName} {\n' +
+                '0%   { -' + prefix + '-transform: translateY(0); }\n' +
+                '50%  { -' + prefix + '-transform: translateY({iMid}px); }\n' +
+                '100% { -' + prefix + '-transform: translateY({iEnd}px); }\n' +
+            '}';
+            var animationsTimeout = 3000;
+            animationsConfig = {
+                    coins: {
+                        oEnd: -50,
+                        iMid: -50,
+                        iEnd: 50
+                    },
+                    level: {
+                        oEnd: 60,
+                        iMid: -50,
+                        iEnd: 35
+                    },
+                    food: {
+                        oEnd: 70,
+                        iMid: -125,
+                        iEnd: 40
+                    },
+                    lock: {
+                        oEnd: 70,
+                        iMid: -125,
+                        iEnd: 40
+                    }
+            };
+
+        [oAnimationTemplate, iAnimationTemplate].forEach(function (template) {
+            Object.keys(animationsConfig).forEach(function (key) {
+                var animationRules = template.replace(/\{\w+\}/g, function (matchedStr) {
+                        switch (matchedStr) {
+                            case "{oName}": return key + "OuterAnimation";
+                            case "{iName}": return key + "InnerAnimation";
+                            default: return animationsConfig[key][matchedStr.slice(1, -1)];
+                        }
+                    });
+
+                try{
+                    document.styleSheets[0].insertRule(animationRules, 0);
+                } catch (e) {
+                    //meh
+                }
+            });
+        });
+    };
     AnimsFactory.prototype.castleUpgradeTransition = function(entityView) {
         var castleOverlay = document.createElement('div'),
             style = castleOverlay.style,
@@ -151,13 +214,13 @@
             top, left;
 
         castleOverlay.className = 'feedback_anim ';
-        var castleImage = iconDefinition.image.cloneNode();
+        var castleImage = iconDefinition.image.cloneNode(true);
         castleOverlay.appendChild( castleImage );
 
 
         top = entityView.y;
         left = entityView.x;
-        style.webkitTransform = "translate3d(" + (left) + "px," + (top) + "px,0)";
+        style[wooga.castle.prefixedTransform] = "translate3d(" + (left) + "px," + (top) + "px,0)";
 
         rootNode.appendChild(castleOverlay);
 
@@ -207,13 +270,13 @@
 
         rootNode.appendChild(element);
 
-        element.addEventListener("webkitAnimationEnd", function animationEndHandler (event) {
+        element.addEventListener(utils.prefix("AnimationEnd"), function animationEndHandler (event) {
             if (event.target === element) {
-                element.removeEventListener("webkitAnimationEnd", animationEndHandler, false);
-                rootNode.removeChild(element);
+                element.parentNode.removeChild(element);
                 if( typeof config.callback === "function") {
                     config.callback();
                 }
+                element.removeEventListener(utils.prefix("AnimationEnd"), animationEndHandler, false);
             }
         }, false);
         return element;
@@ -238,7 +301,7 @@
 
 
             feedbackicon.className = 'feedback_anim to_' + config.feedback[1];
-            feedbackicon.appendChild( iconDefiniition.image.cloneNode() );
+            feedbackicon.appendChild( iconDefiniition.image.cloneNode(true) );
             amountText = document.createTextNode(amount);
             feedbackicon.appendChild((function(){
                 var node = document.createElement('span');
@@ -259,72 +322,23 @@
             left = ((view.scrollLeft + leftIn + ( width* 0.5 ) )  -0.5 * iconDefiniition.width * gridUnit );
 
             style.top = style.left = 0;
-            style.webkitTransform = "translate3d(" + (left) + "px," + (top) + "px,0)";
+            style[wooga.castle.prefixedTransform] = "translate3d(" + (left) + "px," + (top) + "px,0)";
 
             rootNode.appendChild(feedbackicon);
 
             setTimeout(function(){
-                style.webkitTransform = "translate3d(" + (destination.offsetLeft + 10) + "px," + (destination.offsetTop) + "px,0)";
+                style[wooga.castle.prefixedTransform] = "translate3d(" + (destination.offsetLeft + 10) + "px," + (destination.offsetTop) + "px,0)";
 
-                utils.removeOnAnimationEnd(feedbackicon, function () {
+                utils.removeOnTransitionEnd(feedbackicon, function () {
                     wooga.castle.DooberTooltip.get(config.feedback[1]).add(amount);
                 });
-            }, 1);
+            }, 15);
         }
         return this;
     };
 
 
 
-    var oAnimationTemplate =
-            '@-webkit-keyframes {oName} {\n' +
-                '0%   { -webkit-transform: translateX(0); }\n' +
-                '100% { -webkit-transform: translateX({oEnd}px); }\n' +
-            '}';
-    var iAnimationTemplate =
-            '@-webkit-keyframes {iName} {\n' +
-                '0%   { -webkit-transform: translateY(0); }\n' +
-                '50%  { -webkit-transform: translateY({iMid}px); }\n' +
-                '100% { -webkit-transform: translateY({iEnd}px); }\n' +
-            '}';
-
-    var animationsTimeout = 3000;
-    var animationsConfig = {
-            coins: {
-                oEnd: -50,
-                iMid: -50,
-                iEnd: 50
-            },
-            level: {
-                oEnd: 60,
-                iMid: -50,
-                iEnd: 35
-            },
-            food: {
-                oEnd: 70,
-                iMid: -125,
-                iEnd: 40
-            },
-            lock: {
-                oEnd: 70,
-                iMid: -125,
-                iEnd: 40
-            }
-        };
-
-    [oAnimationTemplate, iAnimationTemplate].forEach(function (template) {
-        Object.keys(animationsConfig).forEach(function (key) {
-            var animationRules = template.replace(/\{\w+\}/g, function (matchedStr) {
-                    switch (matchedStr) {
-                        case "{oName}": return key + "OuterAnimation";
-                        case "{iName}": return key + "InnerAnimation";
-                        default: return animationsConfig[key][matchedStr.slice(1, -1)];
-                    }
-                });
-
-            document.styleSheets[0].insertRule(animationRules, 0);
-        });
-    });
 
 
     AnimsFactory.prototype.showItemFeedback = function (config) {
@@ -344,7 +358,7 @@
 
 
         feedbackicon.className = 'feedbacker to_' + config.feedback[1];
-        feedbackicon.appendChild( iconDefiniition.image.cloneNode() );
+        feedbackicon.appendChild( iconDefiniition.image.cloneNode(true) );
 
 
         top = ( entityView.y + ( entityView.height * 0.5 ) ) -0.5 * iconDefiniition.height * gridUnit;
@@ -353,11 +367,11 @@
         style.top = top + "px";
         style.left = left + "px";
 
-        feedbackicon.style.webkitTransform = "translate3d(0px,0px,0)";
+        feedbackicon.style[wooga.castle.prefixedTransform] = "translate3d(0px,0px,0)";
 
         setTimeout(function () {
             var position = animationsConfig[config.feedback[1]];
-            feedbackicon.style.webkitTransform = "translate3d(" + position.oEnd + "px," + position.iEnd + "px,0)";
+            feedbackicon.style[wooga.castle.prefixedTransform] = "translate3d(" + position.oEnd + "px," + position.iEnd + "px,0)";
         }, 50 );
 
         var finisher = function () {
@@ -367,10 +381,10 @@
                 var trstr = "translate3d(" + (-(feedbackicon.offsetLeft - finalDestination3d.left )+ destination.offsetWidth - 58) + "px,"
                             + ( -(feedbackicon.offsetTop - finalDestination3d.top )) + "px,0)";
 
-                style.webkitTransition = '3s, opacity 2s 1s';
-                style.webkitTransform = trstr;
+                style[utils.prefix('Transition')] = '3s, opacity 2s 1s';
+                style[wooga.castle.prefixedTransform] = trstr;
                 style.opacity = 1;
-                feedbackicon.addEventListener('webkitTransitionEnd', function(ev){
+                feedbackicon.addEventListener(utils.prefix('TransitionEnd'), function(ev){
                     if(feedbackicon.parentNode){
                         feedbackicon.parentNode.removeChild(feedbackicon);
                         // TODO refactor this to be general!!!1
@@ -421,20 +435,20 @@
             top, left;
 
         feedbackicon.className = 'feedback_anim ' + config.type + 'ie';
-        feedbackicon.appendChild( iconDefiniition.image.cloneNode() );
+        feedbackicon.appendChild( iconDefiniition.image.cloneNode(true) );
 
         style.top = style.left = 0;
-        style.webkitTransform = "translate3d(" + (destination.offsetLeft + 10) + "px," + (destination.offsetTop) + "px,0)";
+        style[wooga.castle.prefixedTransform] = "translate3d(" + (destination.offsetLeft + 10) + "px," + (destination.offsetTop) + "px,0)";
 
         rootNode.appendChild(feedbackicon);
 
         setTimeout(function () {
             top = (view.scrollTop + entityView.y + ( entityView.height * 0.5 ) );
             left = ((view.scrollLeft + entityView.x + ( entityView.width * 0.5 ) )  -0.5 * iconDefiniition.width * gridUnit );
-            style.webkitTransform = "translate3d(" + (left) + "px," + (top) + "px,0)";
+            style[wooga.castle.prefixedTransform] = "translate3d(" + (left) + "px," + (top) + "px,0)";
             style.opacity = 1;
             utils.removeOnAnimationEnd(feedbackicon);
-        }, 1);
+        }, 15);
     };
 
     AnimsFactory.prototype.showXPFeedback = function(message){

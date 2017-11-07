@@ -1,3 +1,4 @@
+@import "mix.less";
 /* variables */
 @gridUnit: 48px;
 @mapWidth: 32;
@@ -18,12 +19,13 @@ body {
 }
 *, a, button {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -moz-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 canvas {
     position: relative;
     z-index: 199;
     display: block;
-    -webkit-user-select: none;
+    .user-select(none);
 }
 #info-grid {
     opacity: 0.5;
@@ -33,9 +35,9 @@ canvas {
     left: 0;
     z-index: 200;
     pointer-events: none;
-    -webkit-user-select: none;
-    -webkit-user-drag: none;
-    -webkit-transition: opacity .4s;
+    .user-select(none);
+    .user-drag(none);
+    .transition(opacity .4s);
 }
 .invisible {
     display: block;
@@ -56,13 +58,13 @@ canvas {
     position: absolute;
     margin: 0; padding: 0;
     top: 0;
-    -webkit-transform: translate3D(0,0,0);
+    .transform(translate3D(0,0,0));
     background: transparent no-repeat 0 0;
 }
 #game_overlay {
     pointer-events: none;
-    -webkit-user-select: none;
-    -webkit-user-drag: none;
+    .user-select(none);
+    .user-drag(none);
     z-index: 1000;
 }
 
@@ -70,8 +72,9 @@ canvas {
         pointer-events: none;
         opacity: 0;
         background-repeat: no-repeat;
-        -webkit-transition: opacity .4s;
+        .transition(opacity .4s);
         -webkit-transform-origin: 50% 50%;
+        -moz-transform-origin: 50% 50%;
 
         -webkit-animation-name: pulse;
         -webkit-animation-iteration-count: infinite;
@@ -79,16 +82,23 @@ canvas {
         -webkit-animation-direction: alternate;
         -webkit-animation-timing-function: ease;
 
+        -moz-animation-name: pulse;
+        -moz-animation-iteration-count: infinite;
+        -moz-animation-duration: .8s;
+        -moz-animation-direction: alternate;
+        -moz-animation-timing-function: ease;
     }
 
     #game_overlay .actionIcon.idle.house{
         -webkit-animation-name: pulse;
+        -moz-animation-name: pulse;
     }
     #game_overlay .actionIcon.paused.statichouse{
         background-size: contain;
         display: block!important;
         opacity: 1;
         -webkit-animation-name: none;
+        -moz-animation-name: none;
     }
 
 #game_overlay, #info-grid, #grid-map{
@@ -217,6 +227,8 @@ div.navigation .buttons {
     background: url("../images/status/emptybar.png") no-repeat 0 100%;
     -webkit-animation-duration: 1s;
     -webkit-animation-name: revealandslideOutter;
+    -moz-animation-duration: 1s;
+    -moz-animation-name: revealandslideOutter;
     pointer-events: none;
 
 }
@@ -235,6 +247,9 @@ div.navigation .buttons {
         -webkit-animation-duration: 1s;
         -webkit-animation-timing-function: ease-in-out;
         -webkit-animation-name: revealandslideInner;
+        -moz-animation-duration: 1s;
+        -moz-animation-timing-function: ease-in-out;
+        -moz-animation-name: revealandslideInner;
     }
 
 .anim {
@@ -262,18 +277,23 @@ div.navigation .buttons {
     background-size: contain;
     -webkit-animation-name: revealandslideOutter, fadePlusSlideUp;
     -webkit-animation-duration: 1.5s;
+    -moz-animation-name: revealandslideOutter, fadePlusSlideUp;
+    -moz-animation-duration: 1.5s;
     pointer-events: none;
-    -webkit-user-select: none;
+    .user-select(none);
 }
 
 .quick-notif.flyout{
     -webkit-animation-name: revealandslideOutter, floatUp;
+    -moz-animation-name: revealandslideOutter, floatUp;
 }
 
 .quick-notif.bonus{
     color: #4ffaf3;
     -webkit-animation-name: revealandslideOutter;
     -webkit-animation-duration: 3.0s;
+    -moz-animation-name: revealandslideOutter;
+    -moz-animation-duration: 3.0s;
 }
 
 @media all and (-webkit-min-device-pixel-ratio: 2) {
@@ -295,14 +315,17 @@ div.navigation .buttons {
 
 .feedback_anim{
     pointer-events: none;
-    -webkit-user-select: none;
+    .user-select(none);
     position: absolute;
     top: 0;
     left: 0;
     opacity: 1;
     -webkit-transition: all 2.0s ease-in, opacity 1.6s .4s ease-in;
-    -webkit-transform: scale3d(1,1,1);
+    -moz-transition: all 2.0s ease-in;
+    transition: all 2.0s ease-in;
+    .transform(scale3d(1,1,1));
     -webkit-animation: dummy 2.5s 1;
+    -moz-animation: dummy 2.5s 1;
     font: 1.6em/normal 'Bubblegum Sans';
     color: white;
     -webkit-text-stroke: 1px black;
@@ -310,6 +333,7 @@ div.navigation .buttons {
 
 .feedback_anim.to_level, .feedback_anim.to_xp {
     -webkit-transition-delay: .2s;
+    -moz-transition-delay: .2s;
 }
 
 .feedback_anim img{
@@ -317,12 +341,17 @@ div.navigation .buttons {
 }
 
 body[data-level-treshold="4"] .feedback_anim{
-    -webkit-transition: all .8s, opacity .45s .35s;
+    .transition(all .8s);
     -webkit-animation-duration: .8s;
+    -moz-animation-duration: .8s;
 }
 
 
 @-webkit-keyframes dummy{
+    0%{text-align: inherit;}
+    100%{text-align: inherit;}
+}
+@-moz-keyframes dummy{
     0%{text-align: inherit;}
     100%{text-align: inherit;}
 }
@@ -334,8 +363,8 @@ body[data-level-treshold="4"] .feedback_anim{
 
 .tuthilite{
     pointer-events: none!important;
-    -webkit-user-select: none;
-    -webkit-user-drag:none;
+    .user-select(none);
+    .user-drag(none);
     display: block;
     outline: 3px solid rgba(100, 255, 100, 1.0);
     background: rgba(100, 255, 100, .4);
@@ -345,8 +374,8 @@ body[data-level-treshold="4"] .feedback_anim{
 
 .tutarrow{
     pointer-events: none!important;
-    -webkit-user-select: none;
-    -webkit-user-drag:none;
+    .user-select(none);
+    .user-drag(none);
     display: block;
     width: 178px;
     height: 177px;
@@ -357,8 +386,8 @@ body[data-level-treshold="4"] .feedback_anim{
         background:  url(../images/hud/hand.png) no-repeat;
         background-size: contain;
         pointer-events: none!important;
-        -webkit-user-select: none;
-        -webkit-user-drag:none;
+        .user-select(none);
+        .user-drag(none);
         position: relative;
         left: 0; top: 0;
         margin: 0;
@@ -392,7 +421,7 @@ body[data-level-treshold="4"] .feedback_anim{
     display: none;
     pointer-events: none;
     z-index: 80001;
-    -webkit-user-select: none;
+    .user-select(none);
     *{
         pointer-events: auto;
     }
@@ -426,6 +455,10 @@ body[data-level-treshold="4"] .feedback_anim{
     0% { -webkit-transform: translate3d(0,0,0); }
     100% { -webkit-transform: translate3d(20%,0,0); }
 }
+@-moz-keyframes bouncer{
+    0% { -moz-transform: translate3d(0,0,0); }
+    100% { -moz-transform: translate3d(20%,0,0); }
+}
 
 @media all and (-webkit-min-device-pixel-ratio: 2) {
    #game, body, html {
@@ -451,9 +484,9 @@ body[data-level-treshold="4"] .feedback_anim{
     top: 0; left: 0;
     display: block;
     opacity: 1;
-    -webkit-user-select: none;
-    -webkit-user-drag: none;
-    -webkit-transition: opacity .6s;
+    .user-select(none);
+    .user-drag(none);
+    .transition(opacity .6s);
 }
 #enforce-modal, #uiblocker{
     .screenoverlay;
@@ -483,18 +516,22 @@ body[data-level-treshold="4"] .feedback_anim{
     position: absolute;
     top: 0; left: 0;
     background: rgba(0, 0, 0, .0);
-    -webkit-transition: opacity .6s;
+    .transition(opacity .6s);
     display: block;
     z-index: 100000;
     opacity: 1;
     pointer-events: auto;
-    -webkit-user-select: none;
-    -webkit-user-drag: none;
+    .user-select(none);
+    .user-drag(none);
 }
 
 @-webkit-keyframes spin{
     0%{ -webkit-transform: rotate(0deg); }
     100%{ -webkit-transform: rotate(359deg); }
+}
+@-moz-keyframes spin{
+    0%{ -moz-transform: rotate(0deg); }
+    100%{ -moz-transform: rotate(359deg); }
 }
 
 
@@ -509,34 +546,44 @@ body[data-level-treshold="4"] .feedback_anim{
 
     -webkit-animation-duration: 0.75s;
     -webkit-animation-timing-function: ease;
+    -moz-animation-duration: 0.75s;
+    -moz-animation-timing-function: ease;
 }
 .feedbacker.done {
-    -webkit-transition: all 2.0s ease-in, opacity 1.6s .4s ease-in;
+    .transition(~"all 2.0s ease-in, opacity 1.6s .4s ease-in");
 }
 .feedbacker.to_food {
     -webkit-animation-name: foodOuterAnimation;
+    -moz-animation-name: foodOuterAnimation;
 }
 .feedbacker.to_food img {
     -webkit-animation-name: foodInnerAnimation;
+    -moz-animation-name: foodInnerAnimation;
 }
 .feedbacker.to_level {
     -webkit-animation-name: levelOuterAnimation;
+    -moz-animation-name: levelOuterAnimation;
 }
 .feedbacker.to_level img {
     -webkit-animation-name: levelInnerAnimation;
+    -moz-animation-name: levelInnerAnimation;
 }
 .feedbacker.to_coins {
     -webkit-animation-name: coinsOuterAnimation;
+    -moz-animation-name: coinsOuterAnimation;
 }
 .feedbacker.to_coins img {
     -webkit-animation-name: coinsInnerAnimation;
+    -moz-animation-name: coinsInnerAnimation;
 }
 .feedbacker.to_lock {
     -webkit-animation-name: lockOuterAnimation;
+    -moz-animation-name: lockOuterAnimation;
     z-index: 6000;
 }
 .feedbacker.to_lock img {
     -webkit-animation-name: lockInnerAnimation;
+    -moz-animation-name: lockInnerAnimation;
 }
 
 [data-in-tutorial="true"] .ship.actionIcon {

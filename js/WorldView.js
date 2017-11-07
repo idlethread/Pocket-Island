@@ -487,10 +487,9 @@
 
                 if (that.isScrolled) {
                     var translation = "translate3d(" + that.scrollLeft + "px, " + that.scrollTop + "px, 0)";
-                    bgStyle.webkitTransform = translation;
-                    overlayStyle.webkitTransform = translation;
-                    gridStyle.webkitTransform = translation;
-                    infoStyle.webkitTransform = translation;
+
+                    bgStyle[wooga.castle.prefixedTransform] = overlayStyle[wooga.castle.prefixedTransform] =
+                    gridStyle[wooga.castle.prefixedTransform] = infoStyle[wooga.castle.prefixedTransform] = translation;
                     that.isScrolled = false;
                 }
 

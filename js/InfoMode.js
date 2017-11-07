@@ -172,9 +172,9 @@
         // draw in InPlaceInfoMode below influence of decorations
         if (entityView.entity.is("decoration")){
             var topUnderArea = top + (entityView.entity.definition.influenceArea * gridUnit * (reverse ? 1 : -1));
-            style.webkitTransform = 'translate3d(' + left + 'px, ' + topUnderArea + 'px, 0)';
+            style[wooga.castle.prefixedTransform] = 'translate3d(' + left + 'px, ' + topUnderArea + 'px, 0)';
         } else {
-            style.webkitTransform = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
+            style[wooga.castle.prefixedTransform] = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
         }
 
     };

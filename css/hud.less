@@ -1,9 +1,14 @@
+@import "mix.less";
 
 #hud-goals.shake .goalIcon{
     -webkit-animation-name: shake;
     -webkit-animation-duration: .2s;
     -webkit-animation-iteration-count: 20;
     -webkit-animation-fill-mode: alternate;
+    -moz-animation-name: shake;
+    -moz-animation-duration: .2s;
+    -moz-animation-iteration-count: 20;
+    -moz-animation-fill-mode: alternate;
 }
 
 html,
@@ -40,8 +45,8 @@ padding-top: 10px;
   z-index: 1101;
   text-align: center;
   color: #fff;
-  -webkit-user-select: none;
-  -webkit-user-drag: none;
+  .user-select(none);
+  .user-drag(none);
   border-radius: 10px;
 }
 header > div {
@@ -50,6 +55,7 @@ header > div {
   width: 100px;
   height: 80px;
   vertical-align: top;
+  text-align: left;
 }
 header #coins, header #food, header #population, header #level {
     margin-top: 1px;
@@ -57,8 +63,8 @@ header #coins, header #food, header #population, header #level {
 }
 header div.doober-tooltips{
     pointer-events: none;
-    -webkit-user-select: none;
-    -webkit-user-drag: none;
+    .user-select(none);
+    .user-drag(none);
     position: absolute;
     text-align: center;
     width: 100%;
@@ -77,13 +83,13 @@ header div.doober-tooltips{
         font: normal 28px/62px 'Bubblegum Sans';
         width: 100px;
         margin: 0 10px;
-        -webkit-transition: all .3s;
-        -webkit-transform: translate3d(0, -100%, 0);
+        .transition(all .3s);
+        .transform(translate3d(0, -100%, 0));
         text-align: center;
         color: #fff;
     }
     header div.doober-tooltip.on{
-        -webkit-transform: translate3d(0, 0, 0);
+        .transform(translate3d(0, 0, 0));
     }
     header div.doober-tooltip[data-for=food]{
         margin-left: 20px;
@@ -113,13 +119,19 @@ header .info {
   font: normal 22px/30px 'Bubblegum Sans', sans-serif;
   margin: 60px auto 0;
   min-width: 72px;
-  -webkit-transform: translate(0,0);
+  .transform(translate(0,0));
   -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
   -webkit-animation-name: blink-out;
   -webkit-animation-duration: 1s;
   -webkit-animation-delay: 2s;
   -webkit-animation-fill-mode: forwards;
   -webkit-animation-timing-function: steps(1);
+  -moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  -moz-animation-name: blink-out;
+  -moz-animation-duration: 1s;
+  -moz-animation-delay: 2s;
+  -moz-animation-fill-mode: forwards;
+  -moz-animation-timing-function: steps(1);
   top: 12px;
 }
 
@@ -133,12 +145,15 @@ header .info:before {
   border-top: 4px solid #fff;
   position: absolute;
   margin: -16px 0 0 26px;
-  -webkit-transform: rotate(45deg);
+  .transform(rotate(45deg));
 }
 header .active .info, header :active .info {
   -webkit-animation-name: blink-in;
   -webkit-animation-duration: 1s;
   -webkit-animation-fill-mode: forwards;
+  -moz-animation-name: blink-in;
+  -moz-animation-duration: 1s;
+  -moz-animation-fill-mode: forwards;
 }
 
 header .bar {
@@ -169,6 +184,7 @@ header #population .bar {
     margin-left: 18px;
     background: #813206;
     -webkit-box-shadow: 0 0 4px #923907 inset;
+    -moz-box-shadow: 0 0 4px #923907 inset;
 }
 header #population .bar:before {
   width: 52px;
@@ -214,6 +230,7 @@ header #food .progress, header #population .progress {
     text-shadow: 0 1px 1px #813206;
     font: normal 22px/32px 'Bubblegum Sans', sans-serif;
     width: 100%;
+    text-align: center;
 }
 header #level .progress, header #level .info, header #level .info:before {
   background-color: #179df1;
@@ -232,6 +249,7 @@ nav {
     width: 239px;
     height: 131px;
     right: 0;
+    display: block;
     display: -webkit-box;
 }
 aside {
@@ -245,6 +263,7 @@ aside *{
 nav a, aside a {
     text-decoration: none;
     -webkit-touch-callout: none;
+    -moz-touch-callout: none;
 }
 nav a {
     background: url(../images/hud/nav.png) no-repeat;
@@ -299,6 +318,7 @@ aside a{
 .hud_mode button.close {
   position: absolute;
   -webkit-appearance: none;
+  -moz-appearance: none;
   margin: 0;
   border: 0;
   padding: 0;
@@ -402,7 +422,7 @@ aside a{
     background-size: 100% 100%;
     border: 2px solid #fff;
     position: absolute;
-    -webkit-transform: scale(0) translate3d(0,0,0);
+    .transform(scale(0) translate3d(0,0,0));
     border-width: 4px;
     border-radius: 20px;
     padding: 20px 20px;
@@ -414,9 +434,11 @@ aside a{
     display: block;
 }
 .destroy_entity.active .infoPanel, .castle_upgrade.active .infoPanel {
-    -webkit-transform: scale(1) translate3d(0,0,0);
+    .transform(scale(1) translate3d(0,0,0));
     -webkit-transition: -webkit-transform .2s linear;
     -webkit-backface-visibility: hidden;
+    -moz-transition: -moz-transform .2s linear;
+    -moz-backface-visibility: hidden;
 }
 .destroy_entity p.specification, .castle_upgrade p.specification {
     font: normal 32px/32px 'Bubblegum Sans';
@@ -429,9 +451,11 @@ aside a{
     margin: 16px 38px 0 30px;
     height: 70px;
     border-radius: 10px;
+    display: block;
     display: -webkit-box;
     pointer-events: auto;
     a {
+        display: inline-block;
         display: -webkit-box;
         -webkit-box-flex: 1;
         width: 50%;
@@ -469,6 +493,7 @@ aside a{
 }
 .hud_mode button {
   -webkit-appearance: none;
+  -moz-appearance: none;
   margin: 0;
   border: 0;
   padding: 0;
@@ -668,8 +693,11 @@ aside a{
     .menu {
         margin: 8px 38px 0 28px;
         height: 70px;
+        display: block;
         display: -webkit-box;
         a {
+            display: inline-block;
+            height: 70px;
             display: -webkit-box;
             -webkit-box-flex: 1;
             width: 50%;
@@ -710,6 +738,7 @@ aside a{
     button.close {
       position: absolute;
       -webkit-appearance: none;
+      -moz-appearance: none;
       border: 0;
       padding: 0;
       top: 0;

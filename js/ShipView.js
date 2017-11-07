@@ -18,7 +18,7 @@
             this.entity.clicked = true;
             this.entity.game.updateMapData();
             this.setActionIcon();
-            wooga.castle.publish('request save');
+            wooga.castle.publish('request-save');
         }
         if (this.entity.upgradable) {
             utils.publish('view:entity/yesno', {

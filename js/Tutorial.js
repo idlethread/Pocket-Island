@@ -202,7 +202,7 @@
         }
          //ignore textY for iPads
         if( this.config.textY && !wooga.castle.capabilities.iPad) {
-            textNode.style.webkitTransform = 'translate(0,' + (this.config.textY ||0)+ 'px)';
+            textNode.style[wooga.castle.prefixedTransform] = 'translate(0,' + (this.config.textY ||0)+ 'px)';
         }
         this.textNode = this.node.appendChild(textNode);
     };
@@ -218,7 +218,7 @@
             }, false);
         }
         if( this.config.textY ) {
-            charNode.style.webkitTransform = 'translate(0,' + (this.config.textY ||0)+ 'px)';
+            charNode.style[wooga.castle.prefixedTransform] = 'translate(0,' + (this.config.textY ||0)+ 'px)';
         }
         this.charNode = this.node.appendChild(charNode);
     };
@@ -457,7 +457,7 @@
         }
         this.arrow = arrow = document.createElement('div');
         arrow.setAttribute('class', 'tutarrow');
-        arrow.style.webkitTransform = "rotate(-" + rotation + "deg)";
+        arrow.style[wooga.castle.prefixedTransform] = "rotate(-" + rotation + "deg)";
 
         arrowPic = document.createElement('figure');
 

@@ -8,6 +8,26 @@
     wooga.castle.GRID_UNIT = 48;
     wooga.castle.IMAGES_BASE_URL = "images/entities/";
 
+    (function () {
+        var style = document.createElement('div').style,
+            prefix;
+        var candidates = {
+            webkit: 'webkitTransform',
+            moz:    'MozTransform', // 'M' is uppercased
+            ms:     'msTransform',
+            o:      'oTransform',
+            '':     'transform'
+        };
+        for (var prefix in candidates) {
+            var candidate = candidates[prefix];
+            if ('undefined' !== typeof style[candidate]) {
+                wooga.castle.prefix = prefix;
+                wooga.castle.prefixedTransform = candidate;
+                break;
+            }
+        }
+    }());
+
     wooga.castle.capabilities = {
         touch: /(iPod|iPhone|iPad|Android)/.test(navigator.userAgent),
         iPod: /** this is how you test: disable the next comment */ /**true || */navigator.userAgent.indexOf('iPod') !== -1,
@@ -25,6 +45,55 @@
         document.location = 'ipad.html';
     }
 
+    (function () {
+        var enabledFS = {
+            webkit: 'webkitFullscreenEnabled',
+            moz:    'mozFullScreenEnabled',
+            ms:     'FULL_SCREEN_NOT_SUPPORTED',
+            o:      'FULL_SCREEN_NOT_SUPPORTED',
+            '':     'fullScreenEnabled'
+        }
+        
+        var isFS = {
+            webkit: 'webkitIsFullScreen',
+            moz:    'mozFullScreen',
+            ms:     'FULL_SCREEN_NOT_SUPPORTED',
+            o:      'FULL_SCREEN_NOT_SUPPORTED',
+            '':     'fullScreen'
+        }
+        
+        var requestFS = {
+            webkit: 'webkitRequestFullScreen',
+            moz:    'mozRequestFullScreen',
+            ms:     'FULL_SCREEN_NOT_SUPPORTED',
+            o:      'FULL_SCREEN_NOT_SUPPORTED',
+            '':     'requestFullScreen'
+        }
+        
+        var cancelFS = {
+            webkit: 'webkitCancelFullScreen',
+            moz:    'mozCancelFullScreen',
+            ms:     'FULL_SCREEN_NOT_SUPPORTED',
+            o:      'FULL_SCREEN_NOT_SUPPORTED',
+            '':     'cancelFullScreen'
+        }
+        
+        var prefix = wooga.castle.prefix;
+
+        if (document[enabledFS[prefix]]) {
+            wooga.castle.toggleFullScreen = function() {
+                if (document[isFS[prefix]])
+                    document[cancelFS[prefix]]();
+                else
+                    document.documentElement[requestFS[prefix]]();
+            };
+            // currently bound to ENTER key TODO maybe display move_icon.png in the aside?
+            document.addEventListener('keydown', function(e) {  
+                if (e.keyCode == 13)
+                    wooga.castle.toggleFullScreen();  
+            }, false);
+        }
+    }());
 
     wooga.castle.isNativeWrapper = function() {
         var result = !wooga.castle.capabilities.desktop && !wooga.castle.capabilities.android && (! /Safari/.test(navigator.userAgent));
@@ -44,7 +113,7 @@
 
         if(wooga.castle.capabilities.iPod) {
             var loader = document.getElementById('loadingScreen');
-            loader.querySelector('p').innerHTML = "Oops! Magic Land is currently not supported on the iPod.";
+            loader.querySelector('p').innerHTML = "Oops! Pocket Island is currently not supported on the iPod.";
             loader.querySelector('.progress').style.display = document.querySelector('.comic').style.display = "none";
             return;
         }

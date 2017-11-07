@@ -371,7 +371,7 @@ wooga.castle.config = wooga.castle.config || {};
 
         var animateTo = function (offsetY) {
             contentOffsetY = offsetY;
-            element.style.webkitTransform = "translate3d(0, " + offsetY + "px ,0)";
+            element.style[wooga.castle.prefixedTransform] = "translate3d(0, " + offsetY + "px ,0)";
         };
 
         var snapToBounds = function () {
@@ -464,9 +464,9 @@ wooga.castle.config = wooga.castle.config || {};
         var animateTo = function (offsetDir) {
             contentOffsetDir = offsetDir;
             if(is_X) {
-                element.style.webkitTransform = "translate3d(" + offsetDir + "px, 0 ,0)";
+                element.style[wooga.castle.prefixedTransform]= "translate3d(" + offsetDir + "px, 0 ,0)";
             } else {
-                element.style.webkitTransform = "translate3d(0, " + offsetDir + "px,0)";
+                element.style[wooga.castle.prefixedTransform] = "translate3d(0, " + offsetDir + "px,0)";
             }
         };
 
@@ -742,11 +742,11 @@ wooga.castle.config = wooga.castle.config || {};
     };
 
     utils.removeOnAnimationEnd = function(element, callback, scope){
-        return utils.removeOnEvent('webkitAnimationEnd', element, callback, scope);
+        return utils.removeOnEvent(utils.prefix('AnimationEnd'), element, callback, scope);
     };
 
     utils.removeOnTransitionEnd = function(element, callback, scope){
-        return utils.removeOnEvent('webkitTransitionEnd', element, callback, scope);
+        return utils.removeOnEvent(utils.prefix('TransitionEnd'), element, callback, scope);
     };
 
     utils.removeOnEvent = function (event, element, callback, scope) {
@@ -863,6 +863,21 @@ wooga.castle.config = wooga.castle.config || {};
     utils.goldDeltaMessage = function (originalCost, desiredAction) {
         return 'You need ' + utils.goldDelta(originalCost) + ' more gold to ' + (desiredAction || 'do that');
     };
+
+    utils.prefix = function (prop) {
+        var p, prefix = wooga.castle.prefix;
+        if ('moz' === prefix) {
+            switch (prop) {
+                case 'AnimationEnd':
+                    p = 'animationend';
+                    break;
+                case 'TransitionEnd':
+                    p = 'transitionend';
+                    break;
+            }
+        }
+        return p || prefix + prop;
+    }
 
 
     wooga.castle.utils = utils;

@@ -76,7 +76,7 @@
         style.height = this.height + 'px';
         style.backgroundImage = "url(" + this.image.src + ')';
         style.backgroundPosition = this.entity.definition.spritex * gu + 'px ' + this.entity.definition.spritey * gu + 'px';
-        domNode.addEventListener('webkitAnimationEnd', utils.bind(function () {
+        domNode.addEventListener(utils.prefix('AnimationEnd'), utils.bind(function () {
             this.domNode.style.display = 'none';
         }, this), false);
         domNode.id = "unlockable-" + this.nth;

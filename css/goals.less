@@ -1,3 +1,5 @@
+@import "mix.less";
+
 .xgoals {
     position: absolute;
     top: 0px; bottom: 0px;
@@ -31,7 +33,7 @@
     font: normal 28px/42px 'Bubblegum Sans', sans-serif;
     color: #fff;
     text-shadow: 1px 1px 2px #000;
-    -webkit-transform: rotate(1deg);
+    .transform(rotate(1deg));
 }
 .xgoals h1 {
     font: 36px/108px 'Bubblegum Sans', sans-serif;
@@ -47,7 +49,7 @@
     text-align: center;
     text-shadow: 1px 1px 1px rgba(0,0,0,.5);
     white-space: nowrap;
-    -webkit-transform: rotate(1deg);
+    .transform(rotate(1deg));
 }
 .xgoals .subgoals {
     position: absolute;
@@ -57,7 +59,7 @@
     overflow: hidden;
 }
 .xgoals .subgoals ul {
-    -webkit-transform: translate3d(0, 0, 0);
+    .transform(translate3d(0, 0, 0));
     overflow: hidden;
 }
 .xgoals hr {
@@ -73,6 +75,7 @@
     margin-top: 580px;
 }
 .xgoals .subgoals li {
+    display: block;
     display: -webkit-box;
     height: 224px;
     margin: 6px 0;
@@ -83,7 +86,7 @@
     border-radius: 20px;
     color: #977f63;
     pointer-events: none;
-    -webkit-transform: translate3d(0, 0, 0);
+    .transform(translate3d(0, 0, 0));
 }
 .subgoals li, .subgoals .gold {
     font-family: 'Bubblegum Sans';
@@ -92,6 +95,7 @@
 .thumbnail {
     width: 120px;
     margin: 0 10px;
+    display: inline-block;
     display: -webkit-box;
     -webkit-box-pack: center;
     -webkit-box-orient: vertical;
@@ -110,13 +114,14 @@
         border: 4px solid #f00;
         border-radius: 10px;
         position: absolute;
-        -webkit-transform: rotate(-5deg) translate(40px, -20px);
+        .transform(rotate(-5deg) translate(40px, -20px));
         font: normal 36px/30px 'Luckiest Guy', sans-serif;
     }
     .done .thumbnail figure{
         visibility: hidden;
     }
 .xgoals .description {
+    display: inline-block;
     -webkit-box-flex: 1;
     padding: 0 20px;
     margin: 20px 0;
@@ -153,6 +158,12 @@
     -webkit-animation-duration: .8s;
     -webkit-animation-direction: alternate;
     -webkit-animation-timing-function: ease;
+
+    -moz-animation-name: pulse;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-duration: .8s;
+    -moz-animation-direction: alternate;
+    -moz-animation-timing-function: ease;
 }
 .done .reward .details {
     display: none;
@@ -191,9 +202,13 @@
     display: block;
     bottom: 0;
     -webkit-animation-name: popOverlay;
-	-webkit-animation-duration: .8s;
-	-webkit-animation-iteration-count: 1;
-	-webkit-animation-timing-function: ease-in;
+    -webkit-animation-duration: .8s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease-in;
+    -moz-animation-name: popOverlay;
+    -moz-animation-duration: .8s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: ease-in;
 }
 .finished .bubble {
     border-radius: 24px;
@@ -212,11 +227,18 @@
 .finished.active .bubble {
     margin-top: -150px;
     -webkit-animation-name: appear;
-	-webkit-animation-duration: .5s;
-	-webkit-animation-delay: .8s;
-	-webkit-animation-iteration-count: 1;
-	-webkit-animation-timing-function: ease-in;
-	-webkit-animation-fill-mode: backwards;
+    -webkit-animation-duration: .5s;
+    -webkit-animation-delay: .8s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease-in;
+    -webkit-animation-fill-mode: backwards;
+
+    -moz-animation-name: appear;
+    -moz-animation-duration: .5s;
+    -moz-animation-delay: .8s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: ease-in;
+    -moz-animation-fill-mode: backwards;
 }
 .finished h1 {
     height: 200px;
@@ -302,14 +324,15 @@
     display: block;
     opacity: 1;
     -webkit-transition: opacity .4s, -webkit-transform .4s;
-    -webkit-transform: scale(1, 1);
-    -webkit-transform-origin: 10% 100%;
+    -moz-transition: opacity .4s, -moz-transform .4s;
+    .transform(scale(1, 1));
+    .transform-origin(10% 100%);
 }
 .goals.hidden{
     display: block;
     pointer-events: none;
     opacity: 0;
-    -webkit-transform: scale(0, 0);
+    .transform(scale(0, 0));
 }
 .goals .subgoals li:first-child {
     margin-top: 20px;
@@ -328,6 +351,7 @@
     float: left;
     width: 144px;
     min-height: 120px;
+    display: inline-block;
     display: -webkit-box;
     -webkit-box-pack: center;
     -webkit-box-align: center;
@@ -372,6 +396,7 @@
     margin: -30px auto 18px;
     background: url(../images/popup/tick.png) 0 0 no-repeat;
     -webkit-background-size: contain;
+    -moz-background-size: contain;
 }
 .goal-screen-subgoals .subgoals .panel.done button{
     display: none;
@@ -385,6 +410,7 @@
 }
 .goals .rewards .embossed {
     display: -webkit-box;
+    display: -moz-box;
     height: 160px;
 }
 .goals .rewards figure {

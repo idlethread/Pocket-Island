@@ -160,27 +160,6 @@
 
         wooga.castle.EntityView.prototype.drawDynamic.call(this, x, y);
 
-        if (this.view.mode !== wooga.castle.GameModesManager.Mode.MOVE &&
-                this.view.mode !== wooga.castle.GameModesManager.Mode.SHOP_PREVIEW &&
-                this.view.mode !== wooga.castle.GameModesManager.Mode.ROADS &&
-                this.view.mode !== wooga.castle.GameModesManager.Mode.SEED &&
-                this.entity.game.playerData.doneTutorial) {
-
-            if (this.entity.contractState === wooga.castle.FarmField.ContractState.FINISHED) {
-                if (this.amimateContractIcons) {
-                    var factor = 1 + Math.sin(Date.now() / 250) * 0.09;
-                    this.icon.style.webkitTransform = "scale3d(" + factor + ", " + factor + ", 0)";
-                } else {
-                    this.icon.style.webkitTransform = "scale3d(" + 1 + ", " + 1 + ", 0)";
-                }
-
-                if (this.iconCircle + 5000 < Date.now()) {
-                    this.amimateContractIcons = (this.amimateContractIcons === true) ? false : true;
-                    this.iconCircle = Date.now();
-                }
-            }
-        }
-
         if (this.showBoostInfo) {
             this.drawBoostInfo();
         }

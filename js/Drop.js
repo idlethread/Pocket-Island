@@ -11,7 +11,7 @@
         };
         wc.utils.publish('house/drop', this.message);
         wc.playerData.collectedItems.push(config.item);
-        wc.utils.publish('request save');
+        wc.utils.publish('request-save');
         this.config = config;
         this.item = config.item;
         setTimeout(this.message.element._click, 10 * 1000);

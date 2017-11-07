@@ -31,14 +31,14 @@
             refs[channel].fn = function () {
                 if (refs[channel]) {
                     utils.removeOnTransitionEnd(refs[channel].div);
-                    refs[channel].div.style.webkitTransform = hideStr;
+                    refs[channel].div.style[wooga.castle.prefixedTransform] = hideStr;
                     delete refs[channel].fn;
                     delete refs[channel].div;
                     delete refs[channel];
                 }
             };
-            div.style.webkitTransform = hideStr;
-            div.addEventListener('webkitTransitionEnd', function (ev) {
+            div.style[wooga.castle.prefixedTransform] = hideStr;
+            div.addEventListener(utils.prefix('TransitionEnd'), function (ev) {
                 if (refs[channel]) {
                     refs[channel].timeout = setTimeout(refs[channel].fn, 6*1000);
                 }
@@ -46,7 +46,7 @@
             div.style.visibility = 'visible';
             window.setTimeout(function () {
                 utils.addClass(div, 'ready');
-                div.style.webkitTransform = 'translate(0px,0)';
+                div.style[wooga.castle.prefixedTransform] = 'translate(0px,0)';
             }, 1);
         }
     }

@@ -163,10 +163,11 @@ file DEST + '/index.html' => 'index.html' do
   sh "cat index.html | ./bin/only_one_css_or_script --js-name #{JS_FILE_NAME} > #{DEST}/index.html"
 end
 
-
+# utils.js and config.js must be on the top of app.js
 file DEST + '/app.js' => [DEST]+JS_FROM_INDEX.dup << 'index.html' << DEST do |t|
-  sh "cat js/config.js > #{t.name}"
-  sh "cat #{JS_FROM_INDEX.reject{|f| f =~ /\/config\.js/ }.join(" ")} | bin/yuicompressor --type js >> #{t.name}"
+  sh "cat js/utils.js | bin/yuicompressor --type js > #{t.name}"
+  sh "cat js/config.js >> #{t.name}"
+  sh "cat #{JS_FROM_INDEX.reject{|f| f =~ /\/utils\.js/ || f =~ /\/config\.js/ }.join(" ")} | bin/yuicompressor --type js >> #{t.name}"
 end
 
 CORE_FILES=FileList['index.html', JS_FILE_NAME, 'version']

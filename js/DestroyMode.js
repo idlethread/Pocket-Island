@@ -164,9 +164,9 @@
 
          if (entity instanceof wooga.castle.DecorationView){
              var topUnderArea = top - entity.entity.definition.influenceArea * gridUnit;
-             style.webkitTransform = 'translate3d(' + left + 'px, ' + topUnderArea + 'px, 0)';
+             style[wooga.castle.prefixedTransform] = 'translate3d(' + left + 'px, ' + topUnderArea + 'px, 0)';
          } else {
-             style.webkitTransform = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
+             style[wooga.castle.prefixedTransform] = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
          }
      };
 

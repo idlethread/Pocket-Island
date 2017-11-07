@@ -119,7 +119,7 @@
             el.innerHTML = text;
         }
 
-        el.addEventListener('webkitAnimationEnd', function (ev) {
+        el.addEventListener(utils.prefix('AnimationEnd'), function (ev) {
             if (ev.target === el && el.parentNode) {
                  el.parentNode.removeChild(el);
             }

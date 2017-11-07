@@ -75,7 +75,7 @@
 
         nav = document.querySelector('nav');
         hud_goals = document.getElementById('hud-goals');
-        var defaultDepartmentId, ddi = 0;
+        var defaultDepartmentId;
 
         var shopItems = {}, i;
 
@@ -147,17 +147,14 @@
 
         };
 
-        for (i in this.shopItems) {
-            if (this.shopItems.hasOwnProperty(i)) {
+        this.shopItems.forEach(function (item, ddi) {
                 if (ddi++ === Shop.DEFAULT_DEPARTMENT_INDEX) {
-                    defaultDepartmentId = i;
+                    defaultDepartmentId = item.name;
                 }
+                shopItems[item.name] = item.items.map(setItemProperties, this);
+                shopItems[item.name].sort(this.sortShopItems);
 
-                shopItems[i] = this.shopItems[i].map(setItemProperties, this);
-
-                shopItems[i].sort(this.sortShopItems);
-            }
-        }
+        }, this);
 
         var shopWrapper = document.createElement("div");
         shopWrapper.id = "shop";
@@ -433,40 +430,46 @@
 
     Shop.prototype.invalidate = function () {
         var goldEl = document.querySelector("#shop .head .gold"),
+            housesEl,
+            activeHouse,
             population = this.game.getPopulation(),
             maxPopulation = (this.game.castle.definition || {}).population || 0;
         if (goldEl) {
             goldEl.innerHTML = this.game.playerData.gold;
         }
-        utils.toggleClass(document.getElementById('shop-houses'), 'population-maxed', this.isPopulationMaxed());
+        housesEl = document.getElementById('shop-houses');
+        if (housesEl) {
+            utils.toggleClass(housesEl, 'population-maxed', this.isPopulationMaxed());
+        }
         if(this.isPopulationMaxed()){
             var castleEntityName = wooga.castle.CastleUpgradeMode.getEntityName().toLowerCase();
             [].map.call(this.element.querySelectorAll('.entity-name'), function (child) {
                 child.innerHTML = castleEntityName;
             }, this);
         }
-
-        var activeHouse = this.element.querySelector('.active[href$="#shop-houses"]');
-        this.element.querySelector('#upgrade-castle').style.display = activeHouse && this.isPopulationMaxed() ? 'block' : 'none';
-
-        Array.prototype.forEach.call(this.element.querySelectorAll('.departments .department li'), function (el) {
-            var cost = el.dataset ? el.dataset.cost : parseInt(el.getAttribute('data-cost'), 10),
-                requiredPopulation = parseInt(el.dataset ? el.dataset.population : el.getAttribute('data-population'), 10),
-                level = el.dataset ? el.dataset.level : parseInt(el.getAttribute('data-level'), 10),
-                wouldMax = (population + requiredPopulation) > maxPopulation;
-            if(level > 1) {
-                var sw = wooga.castle.playerData.level < level;
-                utils.toggleClass(el, 'unalevelable', sw);
-                if( sw ) {
-                    el.setAttribute('title', "Requires level " + level + '!');
+        if (this.element) {
+            activeHouse = this.element.querySelector('.active[href$="#shop-houses"]');
+            this.element.querySelector('#upgrade-castle').style.display = activeHouse && this.isPopulationMaxed() ? 'block' : 'none';
+            Array.prototype.forEach.call(this.element.querySelectorAll('.departments .department li'), function (el) {
+                var cost = el.dataset ? el.dataset.cost : parseInt(el.getAttribute('data-cost'), 10),
+                    requiredPopulation = parseInt(el.dataset ? el.dataset.population : el.getAttribute('data-population'), 10),
+                    level = el.dataset ? el.dataset.level : parseInt(el.getAttribute('data-level'), 10),
+                    wouldMax = (population + requiredPopulation) > maxPopulation;
+                if(level > 1) {
+                    var sw = wooga.castle.playerData.level < level;
+                    utils.toggleClass(el, 'unalevelable', sw);
+                    if( sw ) {
+                        el.setAttribute('title', "Requires level " + level + '!');
+                    }
                 }
-            }
-            utils.toggleClass(el, 'unaffordable', !wooga.castle.game.hasStat('gold', cost));
-            utils.toggleClass(el, 'population-maxed', wouldMax);
-            if (wouldMax) {
-                el.setAttribute('title', 'Population is too high!');
-            }
-        }, this);
+                utils.toggleClass(el, 'unaffordable', !wooga.castle.game.hasStat('gold', cost));
+                utils.toggleClass(el, 'population-maxed', wouldMax);
+                if (wouldMax) {
+                    el.setAttribute('title', 'Population is too high!');
+                }
+            }, this);
+        }
+
     };
 
 }());

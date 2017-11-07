@@ -9,5 +9,4 @@ config/goals.json
 *.sublime-project
 *.sublime-workspace
 config/version
-images/entities/*.json
-images/entities-*
+images/**

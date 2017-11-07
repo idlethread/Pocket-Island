@@ -9,8 +9,8 @@ var rateAppUrl = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContents
 var rateApp = function () {
     "use strict";
 
-    var title = "Magic Land HD";
-    var message = "Do you like Magic Land HD? \nRate it now and get 4000 gold! \n \n \ue32f\ue32f\ue32f\ue32f\ue32f\n ";
+    var title = "Pocket Island HD";
+    var message = "Do you like Pocket Island HD? \nRate it now and get 4000 gold! \n \n \ue32f\ue32f\ue32f\ue32f\ue32f\n ";
 
     var yesHandler = function() {
         wooga.castle.game.increase('gold', 4000);

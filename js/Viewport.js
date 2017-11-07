@@ -13,9 +13,9 @@
             return wooga.castle.capabilities.iPad && (0.5 === scale)? 0.75 : scale;
         },
         setScale: function(to){
-            // Instead of copying the whole content here, string replacement could be used instead.
             setTimeout(function(){
-                document.querySelector("#viewport").setAttribute("content", "width=device-width, height=device-height, initial-scale=" + to + ", minimum-scale=" + to + ", maximum-scale=" + to + ", user-scalable=no");
+                var content = document.querySelector("#viewport").getAttribute("content");
+                document.querySelector("#viewport").setAttribute("content", content.replace(/-scale\s*=\s*[.0-9]+/g, '-scale=' + to));
             }, 0);
         },
         reset: function(){

@@ -77,7 +77,7 @@
             top = entity.y + entity.height,
             left = entity.x + entity.width * 0.5;
 
-        style.webkitTransform = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
+        style[wooga.castle.prefixedTransform] = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
     };
 
     InPlaceActionsMenu.prototype.addActionButtons = function (node, actions) {
@@ -222,7 +222,7 @@
             left = 1490 - (gridUnit * 5); // TODO: make this better
         }
 
-        this.rootNode.style.webkitTransform = entity.is('decoration') ?
+        this.rootNode.style[wooga.castle.prefixedTransform] = entity.is('decoration') ?
             'translate3d(' + left + 'px, ' + top - entity.definition.influenceArea * gridUnit + 'px, 0)':
             'translate3d(' + left + 'px, ' + top + 'px, 0)';
 

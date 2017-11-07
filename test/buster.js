@@ -1,6 +1,6 @@
 var config = module.exports;
 
-config["Magic Land Mobile"] = {
+config["Pocket Island Mobile"] = {
     environment: "browser",        // or "node"
     rootPath: "../",
     sources: [

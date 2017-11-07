@@ -13,7 +13,7 @@ Build 1 Peasant's House,1,250,Look under Houses tab in Shop,buy,poor_house,peasa
 Buy a Villager House,1,100,INFO: Each building adds ONE population to your village,buy,villager_house,villagerHouseBasics_2,1,,have
 Place One Daisy,1,25,Look under Decorations tab in Shop,buy,flower_daisy,landscapeBasics_1,1
 Place One Haybale,1,100,Decorations boost your gold and food output,buy,haybale,landscapeBasics_2,1
-Have 2 Bakeries,2,600,Look for Bakert under Houses tab in Shop,buy,bakery,breadBreakfast_1,1,,have
+Have 2 Bakeries,2,600,Look for Bakery under Houses tab in Shop,buy,bakery,breadBreakfast_1,1,,have
 Supply the Bakery (x 1),1,200,Tap on the Bakery to supply fruits,contract,bakery,breadBreakfast_2,1
 Whack 2 Trolls,2,100,TIP: Trolls hide behind the trees!,whack,troll,trollMenace,1
 Buy 2 Farm Plots,2,200,TIP: Having more farm plots will increase your food production,buy,basic_plot,melons_1,1
@@ -43,7 +43,7 @@ Buy Farm Plots (x 3),3,150,Look under the farming tab in Shop,buy,basic_plot,gra
 Move a House,1,50,TIP: Tap and hold on a house to activate MOVE MODE,move,*house,movingBasics_1,1,buildings/moveBuilding_icon.png
 Build a Dwarf's House,1,50,Look under the Houses tab in Shop,buy,dwarf_house,dwarfs_1,1,,have
 Place 3 Daisy's,3,30,Look under the Decorations tab in Shop,buy,flower_daisy,fairyDecor,1
-Buy a Wind Mill,1,100,Look under the decorations tab in Shop,buy,windmill,fairyDecor,1
+Buy a Wind Mill,1,100,Look under the Decorations tab in Shop,buy,windmill,fairyDecor,1
 Place 4 Roses,4,40,TIP: Place roses next to the buildings,buy,flower_rose,fairyDecor,1
 Collect Pumpkins (x 10),10,750,TIP: Turn ON notifications to never miss a harvest!,harvest,seed-pumpkin,pumpkinPie,1
 Plant Strawberries (x 5),5,500,Tap on the farms to plant desired seeds,plant,seed-strawberry,strawberryCakes,1

@@ -15,6 +15,7 @@ To build the game you need the following tools:
 * __lessc__ `npm install -g less`
 * __jslint__ `npm install -g jslint`
 * __spritopia__ `gem install spritopia`
+* __bundler__ `gem install bundler`
 * __pngcrush__ (optional) `brew install pngcrush`
 
 

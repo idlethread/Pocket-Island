@@ -160,10 +160,10 @@
                     return;
                 }
 
-                notificationElement.addEventListener('webkitAnimationEnd', function (ev) {
+                notificationElement.addEventListener(utils.prefix('AnimationEnd'), function (ev) {
                     var el = ev.target;
-                    el.style.webkitAnimationDuration = el.style.webkitAnimationName === "bounce, ine" ? ".5s, 5s" : ".5s, 20s";
-                    el.style.webkitAnimationName = el.style.webkitAnimationName === "bounce, ine" ? "bounce, oute" : "bounce, ine";
+                    el.style[utils.prefix('AnimationDuration')] = el.style[utils.prefix('AnimationName')] === "bounce, ine" ? ".5s, 5s" : ".5s, 20s";
+                    el.style[utils.prefix('AnimationName')] = el.style[utils.prefix('AnimationName')] === "bounce, ine" ? "bounce, oute" : "bounce, ine";
                 }, false);
 
             }

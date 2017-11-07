@@ -304,7 +304,7 @@
             i = setTimeout(shakeGoalIconFn, HUD.GOALS_ATTENTION_GRABBER_TIMEOUT);
         }, this);
 
-        this.elements.goalButton.addEventListener('webkitAnimationEnd', resetFn, false);
+        this.elements.goalButton.addEventListener(utils.prefix('AnimationEnd'), resetFn, false);
         this.elements.goalButton.addEventListener('click', resetFn, false);
         i = setTimeout(shakeGoalIconFn, HUD.GOALS_ATTENTION_GRABBER_TIMEOUT);
     };

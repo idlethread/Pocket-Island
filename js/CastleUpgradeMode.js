@@ -166,7 +166,7 @@
         if(left > 1430) {
             left = 1490-(entity.view.gridUnit*5); // TODO: make this better
         }
-        style.webkitTransform = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
+        style[wooga.castle.prefixedTransform] = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
     };
 
 

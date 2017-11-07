@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     wooga.castle.DEV = wooga.castle.DEV || false;
 
+    var utils = wooga.castle.utils;
+
     function q(id){
         return document.querySelector(id);
     }
@@ -27,15 +29,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     click("#dev-menu button.cancel", function(){
-        q("#dev-menu").classList.remove('active');
+        utils.removeClass(q("#dev-menu"), 'active');
     });
 
     click("#coins", function(){
-        q("#dev-menu").classList.add('active');
+        utils.addClass(q("#dev-menu"), 'active');
     });
 
     click("button[name=clear_storage]",function(event){
-        if(window.confirm("All your progress will be loose. Continue?")){
+        if(window.confirm("All your progress will be lost. Continue?")){
             wooga.castle.Storage.clear();
             window.location.reload();
         }
